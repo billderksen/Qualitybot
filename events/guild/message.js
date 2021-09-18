@@ -11,7 +11,8 @@ module.exports = (Discord, client, message) => {
         client.commands.get('commands').execute(client, message, client.commands, Discord);
     }
     try {
-        client.commands.get(command).execute(client, message, args, Discord);
+        const cmd = client.commands.get(command) || client.commands.find(a => a.aliases && a.aliases.includes(command));
+        cmd.execute(client, message, args, Discord)
     } catch(e) {
         message.channel.send('invalid command!');
     }

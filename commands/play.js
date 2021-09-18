@@ -4,10 +4,9 @@ require('dotenv').config();
 const queue = new Map();
 module.exports = {
     name: 'play',
-    description: 'QUEUE WIP - Joins and plays a video from youtube',
     aliases: ['skip', 'stop', 'queue'],
+    description: 'QUEUE WIP - Joins and plays a video from youtube',
     async execute(client, message, args) {
-
         // CMD var to catch aliases
         const cmd = message.content.slice(process.env.PREFIX.length).split(/ +/)[0];
 
