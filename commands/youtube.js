@@ -2,7 +2,7 @@ const ytdl = require('ytdl-core');
 const ytSearch = require('yt-search');
  
 module.exports = {
-    name: 'play',
+    name: 'youtube',
     description: 'QUEUE WIP - Joins and plays a video from youtube',
     async execute(client, message, args) {
         const voiceChannel = message.member.voice.channel;
