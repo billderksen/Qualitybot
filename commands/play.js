@@ -55,7 +55,8 @@ module.exports = {
             serverQueue.connection.dispatcher.end();
         }
 
-        if (cmd === 'youtube') {
+        if (cmd === 'play') {
+            console.log('enter func')
             if (!args.length) return message.channel.send('You need to send the second argument.');
             let song = {};
             if (ytdl.validateURL(args[0])) {
