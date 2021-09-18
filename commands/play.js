@@ -3,7 +3,7 @@ const ytSearch = require('yt-search');
 require('dotenv').config();
 const queue = new Map();
 module.exports = {
-    name: 'youtube',
+    name: 'play',
     description: 'QUEUE WIP - Joins and plays a video from youtube',
     aliases: ['skip', 'stop', 'queue'],
     async execute(client, message, args) {
