@@ -1,5 +1,5 @@
 const Discord = require('discord.js')
-require('dotenv').config();
+require('dotenv').config()
 const client = new Discord.Client()
 const mongoose = require('mongoose')
 
@@ -15,9 +15,9 @@ mongoose.connect(process.env.MONGODB_SRV, {
 client.commands = new Discord.Collection()
 client.events = new Discord.Collection()
 
-const handlers = ['command_handler', 'event_handler'];
+const handlers = ['command_handler', 'event_handler']
 handlers.forEach(handler => {
-    require(`./handlers/${handler}`)(client, Discord);
+    require(`./handlers/${handler}`)(client, Discord)
 })
 
-client.login(process.env.DISCORD_TOKEN);
+client.login(process.env.DISCORD_TOKEN)
