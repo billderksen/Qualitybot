@@ -5,7 +5,7 @@ const queue = new Map();
 module.exports = {
     name: 'play',
     aliases: ['skip', 'stop', 'queue'],
-    description: 'QUEUE WIP - Joins and plays a video from youtube',
+    description: 'Joins and plays a video from youtube',
     async execute(client, message, args) {
         // CMD var to catch aliases
         const cmd = message.content.slice(process.env.PREFIX.length).split(/ +/)[0];
@@ -54,8 +54,23 @@ module.exports = {
             serverQueue.connection.dispatcher.end();
         }
 
+        const showQueue = (message, serverQueue) => {
+            if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command');
+            if(serverQueue){
+                let songs = "";
+                let count = 1;
+
+                serverQueue.songs.forEach(e => {
+                    songs += `${count}: ${e.title} \n`
+                    count = count + 1;
+                });
+                return message.channel.send(`${songs}`);
+            } else {
+                return message.channel.send(`There are no songs in the queue`);
+            }
+        }
+
         if (cmd === 'play') {
-            console.log('enter func')
             if (!args.length) return message.channel.send('You need to send the second argument.');
             let song = {};
             if (ytdl.validateURL(args[0])) {
@@ -102,6 +117,6 @@ module.exports = {
         }
         else if (cmd === 'skip') skipSong(message, serverQueue);
         else if (cmd === 'stop') stopSong(message, serverQueue);
-        else if (cmd === 'queue') console.log('wip');
+        else if (cmd === 'queue') showQueue(message, serverQueue);
     }
 }
