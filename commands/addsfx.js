@@ -20,8 +20,10 @@ module.exports = {
         switch (true) {
             case message.attachments.size > 0:
                 createObj = {
-                    name: message.attachments.entries().next().value[1].name.replace(/\.[^/.]+$/, ""),
-                    file: message.attachments.entries().next().value[1].attachment
+                    name: args[0] || message.attachments.entries().next().value[1].name.replace(/\.[^/.]+$/, ""),
+                    file: message.attachments.entries().next().value[1].attachment,
+                    server: message.guild.id
+
                 }
                 break
             case validFileExtension(args[1]):
@@ -29,16 +31,23 @@ module.exports = {
                     message.channel.send('URL is invalid')
                 }
                 else {
-                    createObj = { name: args[0], file: args[1] }
+                    createObj = {
+                        name: args[0],
+                        file: args[1],
+                        server: message.guild.id
+                    }
                 }
                 break;
         }
         try {
-            const sfx = await soundfxModel.create(createObj)
-            sfx.save()
-            message.channel.send(`**Created SFX:** ${sfx.name}`)
+            if (createObj.name) {
+                const sfx = await soundfxModel.create(createObj)
+                sfx.save()
+                message.channel.send(`**Created SFX:** ${sfx.name}`)
+            }
         } catch (err) {
             message.channel.send(`Error code: ${err.code}`)
+            throw err;
         }
     }
 }

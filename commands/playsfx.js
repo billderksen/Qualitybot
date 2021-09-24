@@ -12,17 +12,17 @@ module.exports = {
         if (!permissions.has('CONNECT')) return message.channel.send('You dont have the correct permissions.');
         if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissions.');
         if (!args.length) return message.channel.send('You need to send the second argument.');
-
         try {
-            const query = await soundfxModel.findOne({ name: args[0]});
-
+            const query = await soundfxModel.findOne({ name: args[0], server: message.guild.id});
             if (query) {
-                // message.channel.send(`${query.name} , ${query.file}`);
                 const connection = await voiceChannel.join();
                 connection.play(query.file, {seek: 0, volume: 1})
                 .on('finish', () =>{
                     // voiceChannel.leave();
-                });            }
+                });
+            } else {
+                message.channel.send('Your guild does have this soundFX.')
+            }
         } catch (err) {
             console.log(err)
         }
