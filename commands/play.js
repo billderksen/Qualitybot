@@ -4,7 +4,7 @@ require('dotenv').config();
 const queue = new Map();
 module.exports = {
     name: 'play',
-    aliases: ['skip', 'stop', 'queue'],
+    aliases: ['skip', 'stop', 'queue', 'clear'],
     description: 'Joins and plays a video from youtube',
     async execute(client, message, args) {
         // CMD var to catch aliases
@@ -70,6 +70,11 @@ module.exports = {
             }
         }
 
+        const clearQueue = (message, serverQueue) => {
+            queue.delete(message.guild.id);
+            return message.channel.send(`Music queue has been cleared`);
+        }
+
         if (cmd === 'play') {
             if (!args.length) return message.channel.send('You need to send the second argument.');
             let song = {};
@@ -118,5 +123,6 @@ module.exports = {
         else if (cmd === 'skip') skipSong(message, serverQueue);
         else if (cmd === 'stop') stopSong(message, serverQueue);
         else if (cmd === 'queue') showQueue(message, serverQueue);
+        else if (cmd === 'clear') clearQueue(message, serverQueue);
     }
 }
