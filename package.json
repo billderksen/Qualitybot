@@ -4,6 +4,7 @@
   "description": "",
   "main": "main",
   "scripts": {
+    "star": "node .",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "author": "Youri",
