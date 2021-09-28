@@ -97,7 +97,7 @@ module.exports = {
 
             if (!serverQueue) {
                 const queueConstructor = {
-                    voice_channel: voiceChannel,
+                    voiceChannel: voiceChannel,
                     textChannel: message.channel,
                     connection: null,
                     songs: []

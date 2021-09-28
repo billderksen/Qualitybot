@@ -18,7 +18,7 @@ module.exports = {
                 const connection = await voiceChannel.join();
                 connection.play(query.file, {seek: 0, volume: 1})
                 .on('finish', () =>{
-                    // voiceChannel.leave();
+                    voiceChannel.leave();
                 });
             } else {
                 message.channel.send('Your guild does have this soundFX.')
