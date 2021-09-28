@@ -16,7 +16,7 @@ module.exports = {
             const query = await soundfxModel.findOne({ name: args[0], server: message.guild.id});
             if (query) {
                 const connection = await voiceChannel.join();
-                connection.play(query.file, {seek: 0, volume: 1})
+                connection.play(query.file, {seek: 0, volume: args[1] || 1})
                 .on('finish', () =>{
                     voiceChannel.leave();
                 });
