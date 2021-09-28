@@ -34,7 +34,7 @@ module.exports = {
             i++;
         }
 
-        const exampleEmbed = new Discord.MessageEmbed()
+        const commandsEmbed = new Discord.MessageEmbed()
         .setColor('#ff0000')
         .setTitle('Qualitybot Commands')
         .setURL('https://github.com/yourimv/Qualitybot')
@@ -47,6 +47,6 @@ module.exports = {
         .setTimestamp()
         .setFooter('Click the link to view the bot\'s source code', 'https://i.imgur.com/YzyMfFO.png');
 
-        message.channel.send(exampleEmbed);
+        message.channel.send(commandsEmbed);
     }
 }
