@@ -41,13 +41,11 @@ module.exports = {
         }
         try {
             if (createObj) {
-                if (createObj.name) {
-                    const sfx = await soundfxModel.create(createObj)
-                    sfx.save()
-                    message.channel.send(`**Created SFX:** ${sfx.name}`)
-                } else {
-                    message.channel.send('SFX require a name and a fileURL toe be uploaded.')
-                }
+                const sfx = await soundfxModel.create(createObj)
+                sfx.save()
+                message.channel.send(`**Created SFX:** ${sfx.name}`)
+            } else {
+                message.channel.send('You must add a valid filename and URL in order for the SFX to be created')
             }
         } catch (err) {
             message.channel.send(`Error code: ${err.code}`)

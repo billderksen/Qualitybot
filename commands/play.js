@@ -32,7 +32,6 @@ module.exports = {
                 songQueue.songs.shift();
                 videoPlayer(guild, songQueue.songs[0]);
             })
-            .catch((e) => console.log(e));
             await songQueue.textChannel.send(`Now playing **${song.title}**`)
         }
 
