@@ -24,6 +24,7 @@ module.exports = {
                 message.channel.send('Your guild does have this soundFX.')
             }
         } catch (err) {
+            message.channel.send('Error playing SFX')
             console.log(err)
         }
     }

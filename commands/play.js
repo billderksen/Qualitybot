@@ -18,11 +18,6 @@ module.exports = {
         if (!permissions.has('SPEAK')) return message.channel.send('You dont have the correct permissions.');
         const serverQueue = queue.get(message.guild.id);
 
-        const validURL = (str) =>{
-            var regex = /(http|https):\/\/(\w+:{0,1}\w*)?(\S+)(:[0-9]+)?(\/|\/([\w#!:.?+=&%!\-\/]))?/;
-            return regex.test(str);
-        }
-
         const videoPlayer = async (guild, song) => {
             const songQueue = queue.get(guild.id);
 
@@ -36,7 +31,8 @@ module.exports = {
             .on('finish', () => {
                 songQueue.songs.shift();
                 videoPlayer(guild, songQueue.songs[0]);
-            });
+            })
+            .catch((e) => console.log(e));
             await songQueue.textChannel.send(`Now playing **${song.title}**`)
         }
 

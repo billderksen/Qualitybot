@@ -22,5 +22,8 @@ module.exports = {
             }
 
         })
+        .catch(err => {
+            message.channel.send(`Error: ${err}`)
+        })
     }
 }

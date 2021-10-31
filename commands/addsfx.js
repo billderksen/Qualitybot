@@ -40,10 +40,12 @@ module.exports = {
                 break;
         }
         try {
-            if (createObj.name) {
-                const sfx = await soundfxModel.create(createObj)
-                sfx.save()
-                message.channel.send(`**Created SFX:** ${sfx.name}`)
+            if (createObj) {
+                if (createObj.name) {
+                    const sfx = await soundfxModel.create(createObj)
+                    sfx.save()
+                    message.channel.send(`**Created SFX:** ${sfx.name}`)
+                }
             }
         } catch (err) {
             message.channel.send(`Error code: ${err.code}`)
