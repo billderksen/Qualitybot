@@ -3,7 +3,7 @@ const soundfxModel = require('../models/soundFx')
 module.exports = {
     name: 'addsfx',
     description: 'Add sound effect to the mongodb',
-
+    pings: 0,
     async execute(client, message, args) {
 
         const validURL = (str) => {

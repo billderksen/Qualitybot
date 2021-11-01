@@ -1,5 +1,5 @@
 module.exports = {
-    name: 'commands',
+    name: 'stats',
     description: 'Lists all commands',
     pings: 0,
     async execute(client, message, args, Discord) {
@@ -8,30 +8,9 @@ module.exports = {
         let i = 0;
         for (const [key, value] of args.entries()) {
             commands.push({name: '', value: ''});
-            commands[i].name = `${value.name}`;
-
-            commands[i].value = `${value.description}`;
-            if (value.aliases) {
-                commands[i].aliases = [];
-                for (const a of value.aliases) {
-                    commands[i].aliases.push({name:`${a}`})
-                }
-            }
-            i++;
-        }
-
-        i = 0;
-        for (const c of commands) {
-            if (c.aliases && c.aliases.length > 0) {
-                commands.splice(i+1,0, { name: `\'${c.name}\' command aliases:`, value: `Additional functionalities in ${c.name}` })
-                let vi = 0;
-                let ai = 2;
-                for (const a of c.aliases) {
-                    commands.splice(i+ai,0, { name: `Alias ${vi}` , value: a.name, inline: true })
-                    ai++;
-                    vi++;
-                }
-            }
+            commands[i].name = `__${value.name}__`;
+            commands[i].value = `Calls: ${value.pings}`;
+            commands[i].inline = true;
             i++;
         }
 
@@ -42,6 +21,7 @@ module.exports = {
         .setAuthor('Youri | Qualitytime', 'https://i.imgur.com/A2lw57a.png', 'https://github.com/yourimv/Qualitybot')
         .setThumbnail('https://i.imgur.com/A2lw57a.png')
         .addFields(
+            { name: 'Uptime', value: `${new Date((client.uptime / 1000) * 1000).toISOString().substr(11, 8)}` },
             commands
         )
         // .setImage('https://i.imgur.com/AfFp7pu.png')

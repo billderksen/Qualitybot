@@ -6,6 +6,7 @@ module.exports = {
     name: 'play',
     aliases: ['skip', 'stop', 'queue', 'clear', 'leave', 'volume'],
     description: 'Joins and plays a video from youtube',
+    pings: 0,
     async execute(client, message, args) {
         // CMD var to catch aliases
         const cmd = message.content.slice(process.env.PREFIX.length).split(/ +/)[0];
