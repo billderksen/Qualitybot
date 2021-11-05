@@ -14,6 +14,15 @@ module.exports = {
             i++;
         }
 
+        let totalSeconds = (client.uptime / 1000);
+        let days = Math.floor(totalSeconds / 86400);
+        totalSeconds %= 86400;
+        let hours = Math.floor(totalSeconds / 3600);
+        totalSeconds %= 3600;
+        let minutes = Math.floor(totalSeconds / 60);
+        let seconds = Math.floor(totalSeconds % 60);
+        let uptime = `${days} days, ${hours} hours, ${minutes} minutes and ${seconds} seconds`;
+
         const statsEmbed = new Discord.MessageEmbed()
         .setColor('#ff0000')
         .setTitle('Qualitybot Statistics')
@@ -21,7 +30,7 @@ module.exports = {
         .setAuthor('Youri | Qualitytime', 'https://i.imgur.com/A2lw57a.png', 'https://github.com/yourimv/Qualitybot')
         .setThumbnail('https://i.imgur.com/A2lw57a.png')
         .addFields(
-            { name: 'Uptime', value: `${new Date((client.uptime / 1000) * 1000).toISOString().substr(11, 8)}` },
+            { name: 'Uptime', value: uptime },
             stats
         )
         // .setImage('https://i.imgur.com/AfFp7pu.png')
