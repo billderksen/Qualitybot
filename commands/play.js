@@ -46,29 +46,40 @@ module.exports = {
 
         const stopSong = (message, serverQueue) => {
             if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command');
-            serverQueue.songs = [];
-            serverQueue.connection.dispatcher.end();
+
+            if (serverQueue) {
+                serverQueue.songs = [];
+                serverQueue.connection.dispatcher.end();
+            }
         }
 
         const showQueue = (message, serverQueue) => {
             if (!message.member.voice.channel) return message.channel.send('You need to be in a channel to execute this command');
-            if(serverQueue){
-                let songs = "";
-                let count = 1;
+            if (serverQueue) {
+                if (serverQueue.songs) {
+                    let songs = "";
+                    let count = 1;
 
-                serverQueue.songs.forEach(e => {
-                    songs += `${count}: ${e.title} \n`
-                    count = count + 1;
-                });
-                return message.channel.send(`${songs}`);
+                    serverQueue.songs.forEach(e => {
+                        songs += `${count}: ${e.title} \n`
+                        count = count + 1;
+                    });
+                    return message.channel.send(`${songs}`);
+                }
+                else {
+                    return message.channel.send(`There is no song queue present`);
+                }
             } else {
                 return message.channel.send(`There are no songs in the queue`);
             }
         }
 
         const clearQueue = (message, serverQueue) => {
-            queue.delete(message.guild.id);
-            return message.channel.send(`Music queue has been cleared`);
+            if (queue.get(message.guild.id)) {
+                queue.get(message.guild.id).songs = []
+                return message.channel.send(`Music queue has been cleared`);
+            }
+            return message.channel.send(`There is no music queue`);
         }
 
         const leaveVoicechannel = (message, serverQueue) => {
@@ -129,8 +140,10 @@ module.exports = {
                 }
             }
             else {
-                serverQueue.songs.push(song);
+                if (serverQueue.songs) {
+                    serverQueue.songs.push(song);
                 return message.channel.send(`**${song.title}** added to queue!`);
+                }
             }
         }
         else if (cmd === 'skip') skipSong(message, serverQueue);
