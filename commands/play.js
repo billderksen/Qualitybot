@@ -60,25 +60,37 @@ module.exports = {
 
         queue.set(message.guild.id, queue_constructor);
         queue_constructor.songs.push(song);
+        init_play(voice_channel, message, queue_constructor)
 
-        try {
-          const connection = await voice_channel.join();
-          queue_constructor.connection = connection;
-          video_player(message.guild, queue_constructor.songs[0]);
-        } catch (err) {
-          queue.delete(message.guild.id);
-          message.channel.send("There was an error connecting!");
-          throw err;
-        }
       } else {
-        server_queue.songs.push(song);
-        return message.channel.send(`👍 **${song.title}** added to queue!`);
+        if (!client.voice.connections.get(message.guild.id)) {
+          server_queue.songs = [];
+          server_queue.songs.push(song);
+          init_play(voice_channel, message, server_queue);
+          video_player(message.guild, server_queue.songs[0]);
+        } else {
+          server_queue.songs.push(song);
+          return message.channel.send(`👍 **${song.title}** added to queue!`);
+
+        }
       }
     } else if (cmd === "skip") skip_song(message, server_queue);
     else if (cmd === "stop") stop_song(message, server_queue);
     else if (cmd === "queue") show_queue(message, server_queue, Discord);
     else if (cmd === "volume") change_volume(message, server_queue, args);
   },
+};
+
+const init_play = async (voice_channel, message, server_queue) => {
+  try {
+    const connection = await voice_channel.join();
+    server_queue.connection = connection;
+    video_player(message.guild, server_queue.songs[0]);
+  } catch (err) {
+    queue.delete(message.guild.id);
+    message.channel.send("There was an error connecting!");
+    throw err;
+  }
 };
 
 const video_player = async (guild, song) => {
