@@ -1,4 +1,4 @@
-var cluster = require('cluster');
+const cluster = require('cluster');
 const Discord = require('discord.js')
 require('dotenv').config()
 const client = new Discord.Client()
@@ -13,7 +13,6 @@ if (cluster.isMaster) {
 }
 
 if (cluster.isWorker) {
-    console.log('starting')
     mongoose.connect(process.env.MONGODB_SRV, {
         useNewUrlParser: true,
         useUnifiedTopology: true,
