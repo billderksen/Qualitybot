@@ -3,6 +3,7 @@ const soundfxModel = require('../models/soundFx')
 module.exports = {
     name: 'delsfx',
     description: 'Delete sound effect from the mongodb',
+    cooldown: 5,
     pings: 0,
     async execute(client, message, args) {
         try {

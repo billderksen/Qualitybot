@@ -5,6 +5,7 @@ require('dotenv').config()
 module.exports = {
     name: 'waifu',
     description: `Get an image from ${process.env.BOORUSITE}. Example: "Shirakami Fubuki" "Hololive"`,
+    cooldown: 5,
     pings: 0,
     async execute(client, message, args, Discord) {
 

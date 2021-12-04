@@ -3,6 +3,7 @@ const soundfxModel = require('../models/soundFx')
 module.exports = {
     name: 'playsfx',
     description: 'Play sfx saved in the mongodb',
+    cooldown: 5,
     pings: 0,
     async execute(client, message, args) {
         const voiceChannel = message.member.voice.channel;

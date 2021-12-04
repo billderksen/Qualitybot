@@ -3,6 +3,7 @@ const soundfxModel = require('../models/soundFx')
 module.exports = {
     name: 'listsfx',
     description: 'View all sfx saved in the mongodb',
+    cooldown: 5,
     pings: 0,
     async execute(client, message, args, Discord) {
 

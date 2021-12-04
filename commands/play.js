@@ -7,7 +7,7 @@ const queue = new Map();
 module.exports = {
   name: "play",
   aliases: ["skip", "stop", "queue", "volume"],
-  cooldown: 0,
+  cooldown: 3,
   description: "Music bot",
   async execute(client, message, args, Discord) {
     const cmd = message.content.slice(process.env.PREFIX.length).split(/ +/)[0];
@@ -71,7 +71,6 @@ module.exports = {
         } else {
           server_queue.songs.push(song);
           return message.channel.send(`👍 **${song.title}** added to queue!`);
-
         }
       }
     } else if (cmd === "skip") skip_song(message, server_queue);
